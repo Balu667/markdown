@@ -8,11 +8,14 @@ const Dashboard = () => {
     bold: false
   })
 
+  const [highlightTextIndexs, setHighlightTextIndexs] = useState([])
+
   const convertMarkdownToHtml = async () => {
     let text = markdownText
-    if(markdownTool.bold){
-        text = text + "**"
-    }
+    highlightTextIndexs.reverse().map(item => {
+    text = item.end ? text.slice(0,item.end) + "**" + text.slice(item.end) : text + "**"
+    text = text.slice(0, item.start + 1) +  "**" + text.slice(item.start+1)
+    })
     try {
       const response = await fetch(
         "http://localhost:3001/api/convertTextToHtml",
@@ -37,7 +40,19 @@ const Dashboard = () => {
 
   const boldFn = () => {
     setMarkdownTool({...markdownTool, bold: !markdownTool.bold})
-    setMarkdownText(markdownText+"**")
+    if(markdownTool.bold){
+        let hightlightTextArr = highlightTextIndexs[highlightTextIndexs.length - 1]
+        console.log(hightlightTextArr,"last element")
+       setHighlightTextIndexs(highlightTextIndexs.map(item => {
+        if(item.id === hightlightTextArr.id){
+            return {...item, end: markdownText.length}
+        }
+        return item
+       }))
+
+    }else{
+       setHighlightTextIndexs([...highlightTextIndexs, {id: highlightTextIndexs.length, start: markdownText.length - 1 }])
+    }
   }
 
   return (

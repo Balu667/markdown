@@ -3,12 +3,10 @@ const bodyParser = require('body-parser');
 const marked = require('marked');
 const cors = require('cors');
 const hljs = require("highlight.js");
-
 const app = express();
 const port = 3001;
 
 app.use(cors());
-
 app.use(bodyParser.json());
 
 app.post('/api/convertTextToHtml', (req, res) => {
@@ -32,5 +30,5 @@ app.post('/api/convertTextToHtml', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on ${port}`);
 });

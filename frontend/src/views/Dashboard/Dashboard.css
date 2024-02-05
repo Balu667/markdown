@@ -61,3 +61,21 @@ textarea {
   text-decoration: none;
   margin: 10px;
 }
+
+.btn:hover{
+    background-color: #f0f043;
+}
+
+@media (max-width: 768px) {
+   .markeditor{
+    width: 100%;
+    height: max-content;
+   }
+   .preview{
+    width: 100%;
+    height: 500px;
+   }
+   .dashboard-container{
+    flex-wrap: wrap;
+   }
+  }
