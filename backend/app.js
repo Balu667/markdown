@@ -6,7 +6,10 @@ const hljs = require("highlight.js");
 const app = express();
 const port = 3001;
 
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['POST'],
+  }));
 app.use(bodyParser.json());
 
 app.post('/api/convertTextToHtml', (req, res) => {
